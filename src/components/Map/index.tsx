@@ -71,7 +71,7 @@ const Map: React.FC<Props> = ({ coords }) => {
     }).setLngLat(coords).addTo(map);
 
     return () => map.remove();
-  }, [coords, theme.name]);
+  }, [coords, theme.mode]);
 
   return <MapContainer ref={ mapRef } />;
 };
