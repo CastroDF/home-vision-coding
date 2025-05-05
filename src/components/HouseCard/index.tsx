@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { House } from '@/types/house';
 import { Card, Image, Info, Price, Fallback } from './styles';
 
@@ -8,12 +9,18 @@ interface Props {
 
 const HouseCard: React.FC<Props> = ({ house }) => {
   const [imageError, setImageError] = useState(false);
+  const navigate = useNavigate();
+
+
+  const handleHouseCardClick = () => {
+    navigate(`/house/${house.id}`);
+  };
 
   return (
-    <Card>
+    <Card onClick={ handleHouseCardClick }>
       { imageError ? (
         <Fallback>
-          <img src="/logo.svg" alt="HomeVision logo" />
+          <img src='/logo.svg' alt='HomeVision logo' />
           <p>Can't load the image</p>
         </Fallback>
       ) : (

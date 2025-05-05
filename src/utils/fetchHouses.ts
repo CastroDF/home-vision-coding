@@ -1,27 +1,22 @@
+import axios from 'axios';
 import { HouseResponse } from '../types/house';
+import { retryWithBackoff } from './retryWithBackoff';
 
-const MAX_RETRIES = 3;
+export const fetchHouses = async (
+  page = 1,
+  perPage = 10
+): Promise<HouseResponse> => {
+  const url = 'https://staging.homevision.co/api_project/houses';
 
-export const fetchHouses = async (page = 1, perPage = 10): Promise<HouseResponse> => {
-  const url = `https://staging.homevision.co/api_project/houses?page=${page}&per_page=${perPage}`;
+  return retryWithBackoff(async () => {
+    const res = await axios.get<HouseResponse>(url, {
+      params: { page, per_page: perPage },
+      validateStatus: () => true,
+    });
 
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    try {
-      const res = await fetch(url);
+    if (res.status !== 200) throw new Error(`Request failed with status: ${res.status}`);
+    if (!res.data.ok) throw new Error('API responded with ok: false');
 
-      if (!res.ok) throw new Error(`Fetch failed with status: ${res.status}`);
-      const data = await res.json();
-
-      if (!data.ok) throw new Error('API responded with ok: false');
-
-      return data;
-    } catch (err) {
-      if (attempt === MAX_RETRIES) {
-        throw new Error(`Failed after ${MAX_RETRIES} retries: ${(err as Error).message}`);
-      }
-      await new Promise((r) => setTimeout(r, 500 * attempt)); // Exponential backoff
-    }
-  }
-
-  throw new Error('Unreachable code'); // TypeScript paranoia
+    return res.data;
+  });
 };

@@ -3,11 +3,18 @@ import styled from 'styled-components';
 export const Card = styled.article`
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: ${({ theme }) => theme.shadows.lg};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
   background: ${({ theme }) => theme.colors.white};
   display: flex;
   flex-direction: column;
   max-width: 400px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
+  }
 `;
 
 export const Image = styled.img`

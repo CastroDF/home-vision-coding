@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Main = styled.main`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
@@ -7,4 +7,4 @@ export const Main = styled.main`
     margin-left: auto;
     margin-right: auto;
   }
-`
+`;
