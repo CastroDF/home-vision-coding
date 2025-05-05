@@ -4,6 +4,7 @@ import { ThemeProvider as StyledTheme } from 'styled-components'
 const theme = {
   colors: {
     white: '#ffffff',
+    gray_50: '#f9fafb',
     gray_100: '#eaeaea',
     gray_200: '#cccccc',
     gray_300: '#9a9a9a',
@@ -27,8 +28,11 @@ const theme = {
     tablet: '1024px',
     desktop: '1440px',
   },
+  shadows: {
+    sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
+  },
 }
 
-const ThemeProvider = ({ children }: PropsWithChildren) => <StyledTheme theme={theme}>{children}</StyledTheme>
+const ThemeProvider = ({ children }: PropsWithChildren) => <StyledTheme theme={ theme }>{ children }</StyledTheme>
 
 export default ThemeProvider
