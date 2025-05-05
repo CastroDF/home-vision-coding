@@ -4,6 +4,7 @@ import { House } from '@/types/house';
 import { getCoordinates } from '@/utils/getCoordinates';
 import Mapbox from '@/components/Map';
 import { Hero, Info, Section, Form } from './styles';
+import { Button, Input, Textarea } from '@/components/shared';
 
 const HousePage: React.FC = () => {
   const [coords, setCoords] = useState<[number, number] | null>(null);
@@ -64,10 +65,10 @@ const HousePage: React.FC = () => {
 
         <Form onSubmit={ (e) => e.preventDefault() }>
           <h3>Contact the Agent</h3>
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Your Email" required />
-          <textarea rows={ 4 } placeholder="Your Message" required />
-          <button type="submit">Send Message</button>
+          <Input type='text' placeholder='Your Name' required />
+          <Input type='email' placeholder='Your Email' required />
+          <Textarea rows={ 4 } placeholder='Your Message' required />
+          <Button type='submit'>Send Message</Button>
         </Form>
       </Section>
     </>

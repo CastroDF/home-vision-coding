@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { GlobalStyle } from './GlobalStyle';
 import { ThemeProvider as StyledTheme } from 'styled-components';
 
 export const HEADER_HEIGHT = '6rem';
@@ -97,7 +98,10 @@ const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   return (
     <ThemeContext.Provider value={ { isDark, toggleTheme } }>
-      <StyledTheme theme={ theme }>{ children }</StyledTheme>
+      <StyledTheme theme={ theme }>
+        <GlobalStyle />
+        { children }
+      </StyledTheme>
     </ThemeContext.Provider>
   );
 };

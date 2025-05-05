@@ -28,6 +28,7 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Price = styled.span`
@@ -77,9 +78,9 @@ export const Fallback = styled.div`
   align-items: center;
   justify-content: center;
   height: 200px;
-  background-color: #f4f4f4;
+  background-color: ${({ theme }) => theme.colors.gray_100};
   border-radius: 8px;
-  color: #666;
+  color: ${({ theme }) => theme.colors.gray_600};
   text-align: center;
 
   img {

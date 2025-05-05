@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LogoIcon } from '@/assets/icons';
 import MapMarker from '@/assets/icons/MapMarker';
@@ -38,13 +38,19 @@ const MarkerWrapper = styled.div`
 
 const Map: React.FC<Props> = ({ coords }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (!mapRef.current) return;
 
+    const styleUrl =
+      theme.mode === 'dark'
+        ? 'mapbox://styles/mapbox/dark-v11'
+        : 'mapbox://styles/mapbox/light-v11';
+
     const map = new mapboxgl.Map({
       container: mapRef.current,
-      style: 'mapbox://styles/mapbox/light-v10',
+      style: styleUrl,
       center: coords,
       zoom: 14,
     });
@@ -65,7 +71,7 @@ const Map: React.FC<Props> = ({ coords }) => {
     }).setLngLat(coords).addTo(map);
 
     return () => map.remove();
-  }, [coords]);
+  }, [coords, theme.name]);
 
   return <MapContainer ref={ mapRef } />;
 };
