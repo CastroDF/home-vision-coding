@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
-import styled, { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LogoIcon } from '@/assets/icons';
 import MapMarker from '@/assets/icons/MapMarker';
+import { MarkerWrapper, MapContainer } from './styles';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -11,30 +12,6 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 interface Props {
   coords: [number, number];
 }
-
-const MapContainer = styled.div`
-  width: 100%;
-  height: 400px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-`;
-
-const MarkerWrapper = styled.div`
-  position: relative;
-
-  svg:first-child {
-    width: 100%;
-    height: 100%;
-  }
-
-  .logo {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-`;
 
 const Map: React.FC<Props> = ({ coords }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
