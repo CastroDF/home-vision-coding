@@ -1,40 +1,28 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { House } from '@/types/house';
 import { getCoordinates } from '@/utils/getCoordinates';
 import Mapbox from '@/components/Map';
-import { Hero, Info, Section, Form } from './styles';
 import { Button, Input, Textarea } from '@/components/shared';
+import { useHouses } from '@/context/HousesContext';
+import { Hero, Info, Section, Form } from './styles';
 
 const HousePage: React.FC = () => {
   const [coords, setCoords] = useState<[number, number] | null>(null);
   const [loadingCoords, setLoadingCoords] = useState(false);
 
-  const HOUSES_LOADED: House[] = JSON.parse(localStorage.getItem('houses') || '[]');
-
+  const { houses } = useHouses();
   const { id } = useParams();
   const numericId = Number(id);
-  const house = useMemo(() => HOUSES_LOADED.find((h) => h.id === numericId), [id]);
+
+  const house = useMemo(() => houses.find((h) => h.id === numericId), [houses, numericId]);
 
   useEffect(() => {
     if (!house) return;
 
     const loadCoordinates = async () => {
-      const cacheKey = `coords-${house.id}`;
-      const cached = localStorage.getItem(cacheKey);
-
-      if (cached) {
-        setCoords(JSON.parse(cached));
-        return;
-      }
-
       setLoadingCoords(true);
       const result = await getCoordinates(house.address);
-
-      if (result) {
-        setCoords(result);
-        localStorage.setItem(cacheKey, JSON.stringify(result));
-      }
+      if (result) setCoords(result);
       setLoadingCoords(false);
     };
 

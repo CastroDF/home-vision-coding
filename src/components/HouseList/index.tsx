@@ -1,11 +1,11 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import HouseCard from '@/components/HouseCard';
 import HouseCardSkeleton from '../HouseCard/Skeleton';
-import { useFetchHouses } from '@/hooks/useFetchHouses';
 import { ListWrapper, Grid } from './styles';
+import { useHouses } from '@/context/HousesContext';
 
 const HouseList: React.FC = () => {
-  const { houses, isLoading, isError, loadMore, hasMore } = useFetchHouses();
+  const { houses, isLoading, isError, loadMore, hasMore } = useHouses();
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const onIntersect = useCallback(
