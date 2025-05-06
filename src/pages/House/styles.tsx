@@ -14,14 +14,15 @@ export const Hero = styled.section<{ image: string }>`
   justify-content: center;
   text-align: center;
 
-  background-image: ${({ image }) =>
-    `linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.3)), url(${image})`};
+  background-image: ${({ image, theme }) =>
+    theme.mode === 'dark'
+      ? `linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.5)), url(${image})`
+      : `linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.15)), url(${image})`};
   background-size: cover;
   background-position: center;
 
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => (theme.mode === 'dark' ? '#fff' : '#fff')};
 
-  // Desktop
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     height: 60vh;
   }
