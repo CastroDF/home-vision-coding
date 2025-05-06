@@ -9,6 +9,8 @@ const HouseList: React.FC = () => {
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const onIntersect = useCallback(
+    // Callback triggered when the loaderRef enters the viewport
+    // If there are more houses and it's not already loading, it calls loadMore
     (entries: IntersectionObserverEntry[]) => {
       const firstEntry = entries[0];
       if (firstEntry.isIntersecting && hasMore && !isLoading) {
@@ -18,6 +20,8 @@ const HouseList: React.FC = () => {
     [hasMore, isLoading, loadMore]
   );
 
+  // Set up IntersectionObserver to trigger infinite scroll
+  // Observes a sentinel div instead of listening to scroll events directly
   useEffect(() => {
     const observer = new IntersectionObserver(onIntersect, { threshold: 1 });
     const loader = loaderRef.current;
