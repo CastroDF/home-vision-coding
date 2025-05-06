@@ -1,33 +1,32 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCoordinates } from '@/utils/getCoordinates';
 import Mapbox from '@/components/Map';
 import { Button, Input, Textarea } from '@/components/shared';
 import { useHouses } from '@/context/HousesContext';
 import { Hero, Info, Section, Form } from './styles';
 
 const HousePage: React.FC = () => {
-  const [coords, setCoords] = useState<[number, number] | null>(null);
-  const [loadingCoords, setLoadingCoords] = useState(false);
-
-  const { houses } = useHouses();
   const { id } = useParams();
   const numericId = Number(id);
 
+  const { houses, getCoordinates } = useHouses();
   const house = useMemo(() => houses.find((h) => h.id === numericId), [houses, numericId]);
+
+  const [coords, setCoords] = useState<[number, number] | null>(null);
+  const [loadingCoords, setLoadingCoords] = useState(false);
 
   useEffect(() => {
     if (!house) return;
 
-    const loadCoordinates = async () => {
+    const loadCoords = async () => {
       setLoadingCoords(true);
-      const result = await getCoordinates(house.address);
-      if (result) setCoords(result);
+      const coords = await getCoordinates(house.address);
+      setCoords(coords);
       setLoadingCoords(false);
     };
 
-    loadCoordinates();
-  }, [house]);
+    loadCoords();
+  }, [house, getCoordinates]);
 
   if (!house) return <p>House not found</p>;
 
