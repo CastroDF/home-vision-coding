@@ -4,7 +4,7 @@ import { ThemeProvider as StyledTheme } from 'styled-components';
 
 export const HEADER_HEIGHT = '6rem';
 
-const lightTheme = {
+export const lightTheme = {
   mode: 'light',
   colors: {
     white: '#ffffff',
