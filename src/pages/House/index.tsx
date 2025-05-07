@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Mapbox from '@/components/Map';
+import MapSkeleton from '@/components/Map/Skeleton';
 import { Button, Input, Textarea } from '@/components/shared';
 import { useHouses } from '@/context/HousesContext';
 import { Hero, Info, Section, Form } from './styles';
@@ -28,6 +29,11 @@ const HousePage: React.FC = () => {
     loadCoords();
   }, [house, getCoordinates]);
 
+  // Scroll to top to improve mobile user experience
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   if (!house) return <p>House not found</p>;
 
   return (
@@ -45,7 +51,7 @@ const HousePage: React.FC = () => {
         { coords ? (
           <Mapbox coords={ coords } />
         ) : loadingCoords ? (
-          <p>Loading map...</p>
+          <MapSkeleton />
         ) : (
           <p>Could not load coordinates for this address.</p>
         ) }

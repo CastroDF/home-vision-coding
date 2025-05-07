@@ -5,7 +5,7 @@ import { ListWrapper, Grid } from './styles';
 import { useHouses } from '@/context/HousesContext';
 
 const HouseList: React.FC = () => {
-  const { houses, isLoading, isError, loadMore, hasMore } = useHouses();
+  const { houses, isLoading, isError, loadMore, clearHouses, hasMore } = useHouses();
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const onIntersect = useCallback(
@@ -30,6 +30,18 @@ const HouseList: React.FC = () => {
       if (loader) observer.unobserve(loader);
     };
   }, [onIntersect]);
+
+  // Clear houses when the component mounts, to reset the storage and get fresh data
+  useEffect(() => {
+    clearHouses();
+  }, []);
+
+  // Load more houses when the component mounts if there are no houses and not loading
+  useEffect(() => {
+    if (houses.length === 0 && !isLoading) {
+      loadMore();
+    }
+  }, [houses, isLoading, loadMore]);
 
   return (
     <ListWrapper>

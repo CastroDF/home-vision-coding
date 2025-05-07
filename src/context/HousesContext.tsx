@@ -9,6 +9,7 @@ interface HousesContextType {
   isError: boolean;
   hasMore: boolean;
   loadMore: () => void;
+  clearHouses: () => void;
   getCoordinates: (address: string) => Promise<[number, number] | null>;
 }
 
@@ -64,6 +65,11 @@ export const HousesProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   }, [page, isLoading, hasMore]);
 
+  const clearHouses = () => {
+    setHouses([]);
+    localStorage.removeItem('houses');
+  };
+
   const getCoordinates = useCallback(
     async (address: string): Promise<[number, number] | null> => {
       if (coordsCache.has(address)) return coordsCache.get(address)!;
@@ -79,7 +85,7 @@ export const HousesProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   );
 
   return (
-    <HousesContext.Provider value={ { houses, isLoading, isError, hasMore, loadMore, getCoordinates } }>
+    <HousesContext.Provider value={ { houses, isLoading, isError, hasMore, loadMore, clearHouses, getCoordinates } }>
       { children }
     </HousesContext.Provider>
   );
