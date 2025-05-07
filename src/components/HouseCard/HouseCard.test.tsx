@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 import HouseCard from './index';
 import { House } from '@/types/house';
 
-// Mock the useNavigate hook from react-router-dom
+// Mock useNavigate
 const mockNavigate = vi.fn();
 
 vi.mock('react-router-dom', async () => {
@@ -39,7 +39,7 @@ describe('HouseCard', () => {
   it('navigates when clicked', () => {
     render(<HouseCard house={ mockHouse } />);
 
-    fireEvent.click(screen.getByRole('img')); // Click on the image
+    fireEvent.click(screen.getByRole('img'));
     expect(mockNavigate).toHaveBeenCalledWith('/house/1');
   });
 
