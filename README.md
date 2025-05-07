@@ -55,7 +55,7 @@ The app was built with scalability, developer experience, and dark mode UX in mi
 
 ```bash
 docker build -f Dockerfile.dev -t homevision-dev .
-docker run -p 5173:5173 -v $(pwd):/app -v /app/node_modules homevision-dev
+docker compose -f docker-compose.dev.yml up
 ```
 
 Then access the app at:
