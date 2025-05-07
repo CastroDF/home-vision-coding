@@ -66,7 +66,8 @@ const darkTheme = {
   },
   shadows: {
     ...lightTheme.shadows,
-    sm: '0 1px 2px rgba(255, 255, 255, 0.05)',
+    sm: '0 1px 3px rgba(0, 0, 0, 0.6)',
+    lg: '0 4px 12px rgba(0, 0, 0, 0.9)',
   },
 };
 
