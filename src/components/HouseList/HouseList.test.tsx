@@ -34,6 +34,7 @@ describe('HouseList', () => {
       isError: false,
       hasMore: false,
       loadMore: vi.fn(),
+      clearHouses: vi.fn(),
     });
 
     render(<HouseList />);
@@ -50,6 +51,7 @@ describe('HouseList', () => {
       isError: false,
       hasMore: false,
       loadMore: vi.fn(),
+      clearHouses: vi.fn(),
     });
 
     render(<HouseList />);
@@ -64,6 +66,7 @@ describe('HouseList', () => {
       isError: true,
       hasMore: false,
       loadMore: vi.fn(),
+      clearHouses: vi.fn(),
     });
 
     render(<HouseList />);
