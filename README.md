@@ -15,6 +15,7 @@ The task was to build a modern, responsive React application that:
 - Displays the results cleanly with **infinite scrolling**.
 - Handles API errors gracefully to avoid breaking the UI.
 - Is fully containerized for local development.
+- Includes **unit tests** for all core functionality.
 
 The app was built with scalability, developer experience, and dark mode UX in mind.
 
@@ -74,6 +75,16 @@ yarn dev
 
 ---
 
+## 🧪 Running Tests
+
+To run the test suite:
+
+```bash
+yarn test
+```
+
+---
+
 ## ⚙️ API Usage
 
 The app consumes house listings from:
@@ -99,6 +110,7 @@ It handles pagination (`page`, `per_page`) and gracefully manages network failur
 
 - Enable production Dockerfile and deployment workflow
 - Integrate real form submission via backend
+- Use Mock Service Worker (MSW) to simulate API responses at the network level. This would allow testing real behavior without tightly coupling to axios, and improve realism in tests
 
 ---
 
